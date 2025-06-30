@@ -532,6 +532,17 @@ class AkilesModule(reactContext: ReactApplicationContext) :
     promise.resolve(akiles.isCardEmulationSupported());
   }
 
+  @ReactMethod
+  override fun startCardEmulation(language: String, promise: Promise) {
+    val result = Arguments.createMap().apply {
+      putMap("error", Arguments.createMap().apply {
+        putString("code", ErrorCode.INVALID_PARAM.name)
+        putString("description", "not needed on android")
+      })
+    }
+    promise.resolve(result)
+  }
+
   private fun convertError(ex: AkilesException): WritableMap {
     return Arguments.createMap().apply {
         putString("code", ex.code.name)
