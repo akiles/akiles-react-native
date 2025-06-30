@@ -60,59 +60,11 @@ RCT_EXPORT_MODULE()
 
 #pragma mark - Utility Methods
 
-- (NSString *)errorCodeStringFromErrorCode:(ErrorCode)errorCode
-{
-    switch (errorCode) {
-        case ErrorCodeInternal:
-            return @"INTERNAL";
-        case ErrorCodeInvalidParam:
-            return @"INVALID_PARAM";
-        case ErrorCodeInvalidSession:
-            return @"INVALID_SESSION";
-        case ErrorCodePermissionDenied:
-            return @"PERMISSION_DENIED";
-        case ErrorCodeAllCommMethodsFailed:
-            return @"ALL_COMM_METHODS_FAILED";
-        case ErrorCodeInternetNotAvailable:
-            return @"INTERNET_NOT_AVAILABLE";
-        case ErrorCodeInternetDeviceOffline:
-            return @"INTERNET_DEVICE_OFFLINE";
-        case ErrorCodeInternetLocationOutOfRadius:
-            return @"INTERNET_LOCATION_OUT_OF_RADIUS";
-        case ErrorCodeInternetNotPermitted:
-            return @"INTERNET_NOT_PERMITTED";
-        case ErrorCodeBluetoothDeviceNotFound:
-            return @"BLUETOOTH_DEVICE_NOT_FOUND";
-        case ErrorCodeBluetoothDisabled:
-            return @"BLUETOOTH_DISABLED";
-        case ErrorCodeBluetoothNotAvailable:
-            return @"BLUETOOTH_NOT_AVAILABLE";
-        case ErrorCodeBluetoothPermissionNotGranted:
-            return @"BLUETOOTH_PERMISSION_NOT_GRANTED";
-        case ErrorCodeTimeout:
-            return @"TIMEOUT";
-        case ErrorCodeCanceled:
-            return @"CANCELED";
-        case ErrorCodeNFCReadError:
-            return @"NFC_READ_ERROR";
-        case ErrorCodeLocationDisabled:
-            return @"LOCATION_DISABLED";
-        case ErrorCodeLocationNotAvailable:
-            return @"LOCATION_NOT_AVAILABLE";
-        case ErrorCodeLocationPermissionNotGranted:
-            return @"LOCATION_PERMISSION_NOT_GRANTED";
-        case ErrorCodeLocationFailed:
-            return @"LOCATION_FAILED";
-        default:
-            return @"INTERNAL";
-    }
-}
-
 - (NSDictionary *)errorResultFromNSError:(NSError *)error
 {
     return @{
         @"error": @{
-            @"code": [self errorCodeStringFromErrorCode:(ErrorCode)error.code],
+            @"code": NSStringFromErrorCode((ErrorCode)error.code),
             @"description": error.localizedDescription ?: @"Unknown error"
         }
     };
@@ -368,7 +320,7 @@ RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, scanCard)
                 [self sendEventWithName:@"scan_card_error" body:@{
                     @"opId": opId,
                     @"error": @{
-                        @"code": [self errorCodeStringFromErrorCode:(ErrorCode)error.code],
+                        @"code": NSStringFromErrorCode((ErrorCode)error.code),
                         @"description": error.localizedDescription ?: @"Unknown error"
                     }
                 }];
@@ -514,7 +466,7 @@ RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, scan)
                 [self sendEventWithName:@"scan_error" body:@{
                     @"opId": opId,
                     @"error": @{
-                        @"code": [self errorCodeStringFromErrorCode:(ErrorCode)error.code],
+                        @"code": NSStringFromErrorCode((ErrorCode)error.code),
                         @"description": error.localizedDescription ?: @"Unknown error"
                     }
                 }];
@@ -552,7 +504,7 @@ RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, sync:(NSString *)sessionID
                 [self sendEventWithName:@"sync_error" body:@{
                     @"opId": opId,
                     @"error": @{
-                        @"code": [self errorCodeStringFromErrorCode:(ErrorCode)error.code],
+                        @"code": NSStringFromErrorCode((ErrorCode)error.code),
                         @"description": error.localizedDescription ?: @"Unknown error"
                     }
                 }];
@@ -641,7 +593,7 @@ RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, action:(NSString *)sessionID
         [self.akiles sendEventWithName:@"action_error" body:@{
             @"opId": self.operationId,
             @"error": @{
-                @"code": [self.akiles errorCodeStringFromErrorCode:(ErrorCode)error.code],
+                @"code": NSStringFromErrorCode((ErrorCode)error.code),
                 @"description": error.localizedDescription ?: @"Unknown error"
             }
         }];
@@ -688,7 +640,7 @@ RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, action:(NSString *)sessionID
         [self.akiles sendEventWithName:@"action_internet_error" body:@{
             @"opId": self.operationId,
             @"error": @{
-                @"code": [self.akiles errorCodeStringFromErrorCode:(ErrorCode)error.code],
+                @"code": NSStringFromErrorCode((ErrorCode)error.code),
                 @"description": error.localizedDescription ?: @"Unknown error"
             }
         }];
@@ -750,7 +702,7 @@ RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, action:(NSString *)sessionID
         [self.akiles sendEventWithName:@"action_bluetooth_error" body:@{
             @"opId": self.operationId,
             @"error": @{
-                @"code": [self.akiles errorCodeStringFromErrorCode:(ErrorCode)error.code],
+                @"code": NSStringFromErrorCode((ErrorCode)error.code),
                 @"description": error.localizedDescription ?: @"Unknown error"
             }
         }];

@@ -1940,12 +1940,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AkilesSDK:
-    :commit: d61cd77a0ef0a898583b416763445c3d4a3d9312
+    :commit: 018b50798f340e32e344baa81619a00c292342bb
     :git: https://github.com/akiles/akiles-ios.git
 
 SPEC CHECKSUMS:
   Akiles: b9f50634e8bca29c39e034d9afe67d54e67e8e12
-  AkilesSDK: a749c207ba610e45b18a305cb5bfb12a47fab998
+  AkilesSDK: 4cd72f8855bd849bc4753aac3d9c1f63a76530f9
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
