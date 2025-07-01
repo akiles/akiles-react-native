@@ -348,7 +348,7 @@ export interface Spec extends TurboModule {
   cancel(opId: string): void;
   isBluetoothSupported(): boolean;
   isCardEmulationSupported(): Promise<boolean>;
-  startCardEmulation(language: string): Promise<{ error?: ErrorInfo }>; // iOS only
+  startCardEmulation(): Promise<{ error?: ErrorInfo }>; // iOS only
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('AkilesAdapter');

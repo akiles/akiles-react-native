@@ -418,10 +418,10 @@ RCT_EXPORT_METHOD(isCardEmulationSupported:(RCTPromiseResolveBlock)resolve
     }];
 }
 
-RCT_EXPORT_METHOD(startCardEmulation:(NSString *)language resolve:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(startCardEmulation:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
-    [self.akiles startCardEmulation:language completion:^(BOOL success, NSError * _Nullable error) {
+    [self.akiles startCardEmulation:^(BOOL success, NSError * _Nullable error) {
         if (error) {
             resolve([self errorResultFromNSError:error]);
         } else {

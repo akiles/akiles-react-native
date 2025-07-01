@@ -422,8 +422,8 @@ export async function isCardEmulationSupported(): Promise<boolean> {
  * @returns A promise that resolves when the emulation is complete.
  * @throws AkilesError if an error occurs.
  */
-export async function startCardEmulation(language: string): Promise<void> {
-  const { error } = await Akiles.startCardEmulation(language);
+export async function startCardEmulation(): Promise<void> {
+  const { error } = await Akiles.startCardEmulation();
   if (error) throw convertError(error);
   return;
 }

@@ -533,7 +533,7 @@ class AkilesModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  override fun startCardEmulation(language: String, promise: Promise) {
+  override fun startCardEmulation(promise: Promise) {
     val result = Arguments.createMap().apply {
       putMap("error", Arguments.createMap().apply {
         putString("code", ErrorCode.INVALID_PARAM.name)
