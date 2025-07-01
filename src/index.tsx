@@ -56,6 +56,8 @@ import type {
   ScheduleWeekday,
   ScheduleRange,
   ErrorInfo,
+  Location,
+  SiteGeo,
 } from './NativeAkiles';
 
 export type {
@@ -71,6 +73,8 @@ export type {
   Schedule,
   ScheduleWeekday,
   ScheduleRange,
+  Location,
+  SiteGeo,
 };
 
 export class AkilesError extends Error {
@@ -105,6 +109,16 @@ export class AkilesError extends Error {
    * Timezone the schedule is interpreted in. TZDB name, example `Europe/Madrid`. Only present if `reason` is `OUT_OF_SCHEDULE`.
    */
   timezone?: string;
+
+  /**
+   * Geolocation restriction of the site. Only present if `code` is `INTERNET_LOCATION_OUT_OF_RADIUS`.
+   */
+  siteGeo?: SiteGeo;
+
+  /**
+   * Actual distance to the site, in meters. Only present if `code` is `INTERNET_LOCATION_OUT_OF_RADIUS`.
+   */
+  distance?: number;
 
   constructor(code: ErrorCode, message: string) {
     super(message);
@@ -485,6 +499,14 @@ function convertError(e: ErrorInfo): AkilesError {
 
   if (e.timezone) {
     error.timezone = e.timezone;
+  }
+
+  if (e.siteGeo) {
+    error.siteGeo = e.siteGeo;
+  }
+
+  if (e.distance !== undefined) {
+    error.distance = e.distance;
   }
 
   return error;

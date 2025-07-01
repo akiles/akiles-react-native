@@ -34,6 +34,46 @@ export interface ErrorInfo {
    * Timezone the schedule is interpreted in. TZDB name, example `Europe/Madrid`. Only present if `reason` is `OUT_OF_SCHEDULE`.
    */
   timezone?: string;
+
+  /**
+   * Geolocation restriction of the site. Only present if `code` is `INTERNET_LOCATION_OUT_OF_RADIUS`.
+   */
+  siteGeo?: SiteGeo;
+
+  /**
+   * Actual distance to the site, in meters. Only present if `code` is `INTERNET_LOCATION_OUT_OF_RADIUS`.
+   */
+  distance?: number;
+}
+
+/**
+ * Geographic location
+ */
+export interface Location {
+  /**
+   * Latitude, in degrees.
+   */
+  lat: number;
+
+  /**
+   * Longitude, in degrees.
+   */
+  lng: number;
+}
+
+/**
+ * Geolocation restriction of a site
+ */
+export interface SiteGeo {
+  /**
+   * Location.
+   */
+  location: Location;
+
+  /**
+   * Max radius, in meters.
+   */
+  radius: number;
 }
 
 export enum ErrorCode {

@@ -11,7 +11,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import ak, { AkilesError } from 'akiles-react-native';
+import ak from 'akiles-react-native';
 import type { Gadget, GadgetAction, Hardware } from 'akiles-react-native';
 
 export default function App() {
@@ -70,7 +70,7 @@ export default function App() {
         setSessions(ids);
         if (ids.length > 0) setSelectedSession(ids[0]);
       })
-      .catch((e) => setResult('Error loading sessions: ' + e.message));
+      .catch((e) => setResult('Error loading sessions: ' + describeError(e)));
   }, []);
 
   // Fetch gadgets when session changes
@@ -87,7 +87,7 @@ export default function App() {
         setGadgets(gadgets);
         setSelectedGadget(gadgets[0]?.id);
       })
-      .catch((e) => setResult('Error loading gadgets: ' + e.message));
+      .catch((e) => setResult('Error loading gadgets: ' + describeError(e)));
   }, [selectedSession]);
 
   // Fetch actions when gadget changes
@@ -103,13 +103,8 @@ export default function App() {
   }, [selectedGadget, gadgets]);
 
   const handleError = (e: any) => {
-    if (e instanceof AkilesError) {
-      setResult('Error: ' + e.message + ' ' + JSON.stringify(e));
-    } else {
-      // Handle unexpected errors
-      console.error('Unexpected error:', e);
-      setResult('Unexpected error: ' + e.message);
-    }
+    console.error('Error:', e);
+    setResult('Error: ' + describeError(e));
   };
 
   const handleAddSession = async () => {
@@ -256,12 +251,13 @@ export default function App() {
         },
         onInternetStatus: (status) => setInternetStatus('Status: ' + status),
         onInternetSuccess: () => setInternetStatus('Success'),
-        onInternetError: (e) => setInternetStatus('Error: ' + e.message),
+        onInternetError: (e) => setInternetStatus('Error: ' + describeError(e)),
         onBluetoothStatus: (status) => setBluetoothStatus('Status: ' + status),
         onBluetoothStatusProgress: (percent) =>
           setBluetoothStatus('Progress: ' + Math.round(percent) + '%'),
         onBluetoothSuccess: () => setBluetoothStatus('Success'),
-        onBluetoothError: (e) => setBluetoothStatus('Error: ' + e.message),
+        onBluetoothError: (e) =>
+          setBluetoothStatus('Error: ' + describeError(e)),
       }
     );
     setCancelActionFn(() => cancel);
@@ -295,9 +291,7 @@ export default function App() {
             .update()
             .then(() => setCardUpdateResult('Card updated successfully'))
             .catch((e) =>
-              setCardUpdateResult(
-                'Update failed: ' + (e.message || e.toString())
-              )
+              setCardUpdateResult('Update failed: ' + describeError(e))
             )
             .finally(() => card.close());
         } else {
@@ -318,6 +312,22 @@ export default function App() {
       setCancelScanCardFn(null);
       setResult('Card scan canceled');
     }
+  };
+
+  const describeError = (e: any) => {
+    if (typeof e === 'string') return e;
+    if (!e || typeof e !== 'object') return String(e);
+
+    const lines = [e.message];
+    for (const [key, value] of Object.entries(e)) {
+      if (key == 'name') continue;
+      if (value !== undefined && value !== null) {
+        const valueStr =
+          typeof value === 'object' ? JSON.stringify(value) : String(value);
+        lines.push(`\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0${key}: ${valueStr}`);
+      }
+    }
+    return lines.join('\n');
   };
 
   return (

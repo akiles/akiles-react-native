@@ -548,7 +548,16 @@ class AkilesModule(reactContext: ReactApplicationContext) :
         putString("code", ex.code.name)
         putString("description", ex.description)
 
-        if (ex is AkilesException.PermissionDenied) {
+        if (ex is AkilesException.LocationOutOfRadius) {
+            putMap("siteGeo", Arguments.createMap().apply {
+                putMap("location", Arguments.createMap().apply {
+                    putDouble("lat", ex.siteGeo.location.lat)
+                    putDouble("lng", ex.siteGeo.location.lng)
+                })
+                putDouble("radius", ex.siteGeo.radius)
+            })
+            putDouble("distance", ex.distance)
+        } else if (ex is AkilesException.PermissionDenied) {
             putString("reason", ex.reason.name)
 
             if (ex is AkilesException.PermissionDeniedNotStarted) {
