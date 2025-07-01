@@ -62,12 +62,7 @@ RCT_EXPORT_MODULE()
 
 - (NSDictionary *)errorResultFromNSError:(NSError *)error
 {
-    return @{
-        @"error": @{
-            @"code": NSStringFromErrorCode((ErrorCode)error.code),
-            @"description": error.localizedDescription ?: @"Unknown error"
-        }
-    };
+    return NSDictionaryFromNSError(error);
 }
 
 - (NSDictionary *)successResultWithData:(id)data
