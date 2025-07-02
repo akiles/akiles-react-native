@@ -1940,7 +1940,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AkilesSDK:
-    :commit: 85dcc3f5dd0428d9c8b7df2e228f76595e55c1c8
+    :commit: 21e1eb7ee735a40bcb347575315461ba5e0de9f1
     :git: https://github.com/akiles/akiles-ios.git
 
 SPEC CHECKSUMS:
