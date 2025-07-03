@@ -512,7 +512,17 @@ function convertError(e: ErrorInfo): AkilesError {
   return error;
 }
 
+/**
+ * Get the version of the Akiles SDK.
+ *
+ * @returns The version string of the SDK.
+ */
+export function getVersion(): string {
+  return Akiles.getVersion();
+}
+
 export default {
+  getVersion,
   getSessionIDs,
   addSession,
   removeSession,

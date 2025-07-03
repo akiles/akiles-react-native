@@ -58,8 +58,10 @@ export default function App() {
   const [cardEmulationSupported, setCardEmulationSupported] = useState<
     boolean | null
   >(null);
+  const [sdkVersion, setSdkVersion] = useState<string>('');
 
   useEffect(() => {
+    setSdkVersion(ak.getVersion());
     setBluetoothSupported(ak.isBluetoothSupported());
     ak.isCardEmulationSupported().then(setCardEmulationSupported);
   }, []);
@@ -336,6 +338,12 @@ export default function App() {
       keyboardShouldPersistTaps="handled"
     >
       <View style={styles.container}>
+        {/* Show SDK Version */}
+        <Text style={styles.label}>
+          Akiles SDK Version:{' '}
+          <Text style={{ color: '#b0bec5' }}>{sdkVersion || 'Loading...'}</Text>
+        </Text>
+
         {/* Show Bluetooth and Card Emulation support */}
         <Text style={styles.label}>
           Bluetooth Supported:{' '}

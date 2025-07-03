@@ -69,7 +69,11 @@ class AkilesModule(reactContext: ReactApplicationContext) :
       .emit(eventName, params)
   }
 
-  // Add override to all methods that are in the NativeAkilesSpec (matching the TypeScript Spec)
+  @ReactMethod
+  override fun getVersion(): String {
+    return akiles.version
+  }
+
   @ReactMethod
   override fun getSessionIDs(promise: Promise) {
     try {

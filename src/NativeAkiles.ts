@@ -362,6 +362,7 @@ export interface ScheduleRange {
 }
 
 export interface Spec extends TurboModule {
+  getVersion(): string;
   getSessionIDs(): Promise<{ error?: ErrorInfo; data?: string[] }>;
   addSession(token: string): Promise<{ error?: ErrorInfo; data?: string }>;
   removeSession(id: string): Promise<{ error?: ErrorInfo }>;
