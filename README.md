@@ -1,24 +1,10 @@
 # akiles-react-native
 
-Akiles React Native
+Akiles SDK React Native module.
 
-## Installation
+Documentation: https://dev.akiles.app/sdk/react-native/
 
-```sh
-npm install akiles-react-native
-```
-
-## Usage
-
-
-```js
-import { multiply } from 'akiles-react-native';
-
-// ...
-
-const result = multiply(3, 7);
-```
-
+Support: email support@akiles.app
 
 ## Contributing
 

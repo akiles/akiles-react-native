@@ -1,6 +1,6 @@
 {
   "name": "akiles-react-native",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "Akiles React Native",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -54,7 +54,7 @@
   "bugs": {
     "url": "https://github.com/akiles/akiles-react-native/issues"
   },
-  "homepage": "https://github.com/akiles/akiles-react-native#readme",
+  "homepage": "https://dev.akiles.app/sdk/react-native/",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

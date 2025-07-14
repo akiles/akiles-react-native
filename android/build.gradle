@@ -76,9 +76,9 @@ rootProject.allprojects { subproject ->
       url = uri("https://maven.akiles.app/release")
     }
     // Preview maven repo. Do not use for production!
-    maven {
-      url = uri("https://maven.akiles.app/preview")
-    }
+    // maven {
+    //   url = uri("https://maven.akiles.app/preview")
+    // }
   }
 }
 
@@ -87,7 +87,7 @@ def kotlin_version = getExtOrDefault("kotlinVersion")
 dependencies {
   implementation "com.facebook.react:react-android"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'app.akiles:sdk:2.0.0-g682a88a'
+  implementation 'app.akiles:sdk:2.0.0'
 }
 
 react {
