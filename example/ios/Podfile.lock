@@ -24,7 +24,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - AkilesSDK (1.0.0)
+  - AkilesSDK (2.0.0)
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
   - fast_float (6.1.4)
@@ -1709,7 +1709,7 @@ PODS:
 
 DEPENDENCIES:
   - Akiles (from `../..`)
-  - AkilesSDK (from `https://github.com/akiles/akiles-ios.git`, branch `main`)
+  - AkilesSDK (from `https://github.com/akiles/akiles-ios.git`, branch `v2.0.0`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
@@ -1792,7 +1792,7 @@ EXTERNAL SOURCES:
   Akiles:
     :path: "../.."
   AkilesSDK:
-    :branch: main
+    :branch: v2.0.0
     :git: https://github.com/akiles/akiles-ios.git
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
@@ -1940,12 +1940,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AkilesSDK:
-    :commit: 21e1eb7ee735a40bcb347575315461ba5e0de9f1
+    :commit: 42a3540c879624c9eb11394185496c63dfe52ba4
     :git: https://github.com/akiles/akiles-ios.git
 
 SPEC CHECKSUMS:
   Akiles: b9f50634e8bca29c39e034d9afe67d54e67e8e12
-  AkilesSDK: 4cd72f8855bd849bc4753aac3d9c1f63a76530f9
+  AkilesSDK: ab8c1783178e848fe2ae2bf23357083a05bbd766
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
@@ -2019,6 +2019,6 @@ SPEC CHECKSUMS:
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: c758bfb934100bb4bf9cbaccb52557cee35e8bdf
 
-PODFILE CHECKSUM: c8665434f8114985d3ad13420c6bbf3d52686f49
+PODFILE CHECKSUM: 2eaf2cc788985d32c366970fcfed10f0c4a7dfdf
 
 COCOAPODS: 1.16.2

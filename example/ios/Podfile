@@ -26,7 +26,7 @@ target 'AkilesExample' do
   )
 
   # Akiles SDK dependency - using GitHub main branch
-  pod 'AkilesSDK', :git => 'https://github.com/akiles/akiles-ios.git', :branch => 'main'
+  pod 'AkilesSDK', :git => 'https://github.com/akiles/akiles-ios.git', :branch => 'v2.0.0'
 
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
