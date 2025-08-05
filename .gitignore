@@ -87,3 +87,6 @@ nitrogen/
 
 # built docs
 /docs
+
+# webstorm
+.idea/
