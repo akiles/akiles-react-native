@@ -51,6 +51,10 @@ export default function App() {
   const [cancelActionFn, setCancelActionFn] = useState<(() => void) | null>(
     null
   );
+  // Diagnostics state
+  const [cancelDiagnosticsFn, setCancelDiagnosticsFn] = useState<
+    (() => void) | null
+  >(null);
 
   const [bluetoothSupported, setBluetoothSupported] = useState<boolean | null>(
     null
@@ -270,6 +274,33 @@ export default function App() {
       cancelActionFn();
       setCancelActionFn(null);
       setResult('Action canceled');
+    }
+  };
+
+  const handleCaptureDiagnostics = () => {
+    if (!selectedSession) {
+      setResult('Select a session first');
+      return;
+    }
+    setResult('Capturing diagnostics...');
+    const cancel = ak.captureDiagnostics(selectedSession, null, {
+      onSuccess: (diagnosticId) => {
+        setCancelDiagnosticsFn(null);
+        setResult('Diagnostics captured: ' + diagnosticId);
+      },
+      onError: (e) => {
+        setCancelDiagnosticsFn(null);
+        handleError(e);
+      },
+    });
+    setCancelDiagnosticsFn(() => cancel);
+  };
+
+  const handleCancelDiagnostics = () => {
+    if (cancelDiagnosticsFn) {
+      cancelDiagnosticsFn();
+      setCancelDiagnosticsFn(null);
+      setResult('Diagnostics capture canceled');
     }
   };
 
@@ -588,6 +619,41 @@ export default function App() {
                 </View>
               )}
             </>
+          )}
+        </View>
+        {/* Diagnostics UI */}
+        <Text style={styles.title}>Diagnostics</Text>
+        <View style={{ width: '100%', maxWidth: 420, marginTop: 24 }}>
+          <Button
+            title={
+              cancelDiagnosticsFn
+                ? 'Capturing Diagnostics...'
+                : 'Capture Diagnostics'
+            }
+            onPress={handleCaptureDiagnostics}
+            color={styles.button.color}
+            disabled={!!cancelDiagnosticsFn}
+          />
+          {!!cancelDiagnosticsFn && (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: 10,
+              }}
+            >
+              <Text style={{ color: '#b0bec5', marginRight: 12 }}>
+                Capturing diagnostics...
+              </Text>
+              <View style={{ width: 24, height: 24, marginRight: 12 }}>
+                <ActivityIndicator size="small" color="#1976d2" />
+              </View>
+              <Button
+                title="Cancel"
+                onPress={handleCancelDiagnostics}
+                color="#b71c1c"
+              />
+            </View>
           )}
         </View>
         {/* Scan Card UI */}

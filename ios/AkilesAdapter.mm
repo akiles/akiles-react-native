@@ -55,6 +55,7 @@ RCT_EXPORT_MODULE()
              @"action_success", @"action_error", @"action_status_internet", @"action_internet_success", @"action_internet_error",
              @"action_status_bluetooth", @"action_bluetooth_status_progress", @"action_bluetooth_success", @"action_bluetooth_error",
              @"sync_status", @"sync_status_progress", @"sync_success", @"sync_error",
+             @"capture_diagnostics_success", @"capture_diagnostics_error",
              @"operation_canceled"];
 }
 
@@ -188,6 +189,11 @@ RCT_EXPORT_MODULE()
 }
 
 #pragma mark - React Native Methods
+
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, getVersion)
+{
+    return [self.akiles getVersion];
+}
 
 RCT_EXPORT_METHOD(getSessionIDs:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -363,6 +369,46 @@ RCT_EXPORT_METHOD(closeCard:(NSString *)uid)
     self.lastScannedCard = nil;
 }
 
+RCT_EXPORT_SYNCHRONOUS_TYPED_METHOD(NSString *, captureDiagnostics:(NSString *)sessionID
+                  scanDuration:(double)scanDuration
+                  required:(NSArray *)required)
+{
+    NSString *opId = [[NSUUID UUID] UUIDString];
+
+    NSArray<NSString *> *requiredArray = nil;
+    if (required && [required isKindOfClass:[NSArray class]]) {
+        requiredArray = required;
+    }
+
+    id<Cancellable> cancellable = [self.akiles captureDiagnostics:sessionID scanDuration:(int32_t)scanDuration required:requiredArray completion:^(NSString * _Nullable diagnosticId, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (![self.cancelTokens objectForKey:opId]) {
+                return;
+            }
+            [self.cancelTokens removeObjectForKey:opId];
+
+            if (error) {
+                [self sendEventWithName:@"capture_diagnostics_error" body:@{
+                    @"opId": opId,
+                    @"error": @{
+                        @"code": NSStringFromErrorCode((ErrorCode)error.code),
+                        @"description": error.localizedDescription ?: @"Unknown error"
+                    }
+                }];
+            } else {
+                [self sendEventWithName:@"capture_diagnostics_success" body:@{
+                    @"opId": opId,
+                    @"diagnosticId": diagnosticId ?: @""
+                }];
+            }
+        });
+    }];
+
+    [self.cancelTokens setObject:cancellable forKey:opId];
+
+    return opId;
+}
+
 RCT_EXPORT_METHOD(cancel:(NSString *)opId)
 {
     // Check if we have a cancellable object for this operation
@@ -399,6 +445,10 @@ RCT_EXPORT_METHOD(cancel:(NSString *)opId)
                 @"error": canceledError
             }];
             [self sendEventWithName:@"sync_error" body:@{
+                @"opId": opId,
+                @"error": canceledError
+            }];
+            [self sendEventWithName:@"capture_diagnostics_error" body:@{
                 @"opId": opId,
                 @"error": canceledError
             }];

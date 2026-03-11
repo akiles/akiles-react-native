@@ -225,9 +225,63 @@ export async function getHardwares(sessionID: string): Promise<Hardware[]> {
   return data;
 }
 
+export interface CaptureDiagnosticsCallback {
+  /** Called when the diagnostics capture succeeds. */
+  onSuccess(diagnosticId: string): void;
+  /** Called when the operation fails. */
+  onError(e: AkilesError): void;
+}
+
+export interface CaptureDiagnosticsOptions {
+  /**
+   * BLE scan duration in seconds. Pass 0 to skip the scan entirely.
+   *
+   * Default: `30`.
+   */
+  scanDuration?: number;
+
+  /**
+   * Optional list of hardware IDs. Stops scanning early when all are found.
+   */
+  required?: string[];
+}
+
 export interface ScanCardCallback {
   onSuccess(card: Card): void;
   onError(e: AkilesError): void;
+}
+
+/**
+ * Capture diagnostics for a session.
+ *
+ * This performs a BLE scan and uploads diagnostic information to the Akiles server.
+ *
+ * The sequence of callbacks is guaranteed to be exactly one of `onSuccess` or `onError`.
+ *
+ * @param sessionID - ID for the session to use.
+ * @param options - Options customizing the diagnostics capture.
+ * @param callback - The callback that will be called on success or error.
+ * @returns A function that cancels the ongoing capture diagnostics operation.
+ */
+export function captureDiagnostics(
+  sessionID: string,
+  options: CaptureDiagnosticsOptions | undefined | null,
+  callback: CaptureDiagnosticsCallback
+) {
+  const scanDuration = options?.scanDuration ?? 30;
+  const required = options?.required ?? null;
+  const opId = Akiles.captureDiagnostics(sessionID, scanDuration, required);
+  const remove = listenEvents(opId, {
+    capture_diagnostics_success: ({ diagnosticId }) => {
+      callback.onSuccess(diagnosticId);
+      remove();
+    },
+    capture_diagnostics_error: ({ error }) => {
+      callback.onError(convertError(error));
+      remove();
+    },
+  });
+  return () => Akiles.cancel(opId);
 }
 
 /**
@@ -534,6 +588,7 @@ export default {
   scan,
   action,
   sync,
+  captureDiagnostics,
   scanCard,
   isBluetoothSupported,
   isCardEmulationSupported,

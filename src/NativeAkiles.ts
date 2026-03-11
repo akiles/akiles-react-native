@@ -383,6 +383,11 @@ export interface Spec extends TurboModule {
     options?: ActionOptions | undefined | null
   ): string; // returns opId
   sync(sessionID: string, hardwareID: string): string; // returns opId
+  captureDiagnostics(
+    sessionID: string,
+    scanDuration: number,
+    required: string[] | null
+  ): string; // returns opId
   scanCard(): string; // returns opId
   updateCard(uid: string): Promise<{ error?: ErrorInfo }>;
   closeCard(uid: string): void;

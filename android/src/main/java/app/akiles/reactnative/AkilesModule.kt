@@ -496,6 +496,36 @@ class AkilesModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  override fun captureDiagnostics(sessionID: String, scanDuration: Double, required: com.facebook.react.bridge.ReadableArray?): String {
+    val opId = UUID.randomUUID().toString()
+    val requiredArray: Array<String>? = if (required != null) {
+      Array(required.size()) { i -> required.getString(i) }
+    } else {
+      null
+    }
+    val cancel = akiles.captureDiagnostics(sessionID, scanDuration.toInt(), requiredArray, object : app.akiles.sdk.Callback<String> {
+      override fun onSuccess(diagnosticId: String) {
+        val params = Arguments.createMap().apply {
+          putString("opId", opId)
+          putString("diagnosticId", diagnosticId)
+        }
+        sendEvent("capture_diagnostics_success", params)
+        cancelTokens.remove(opId)
+      }
+      override fun onError(ex: AkilesException) {
+        val params = Arguments.createMap().apply {
+          putString("opId", opId)
+          putMap("error", convertError(ex))
+        }
+        sendEvent("capture_diagnostics_error", params)
+        cancelTokens.remove(opId)
+      }
+    })
+    cancelTokens[opId] = cancel
+    return opId
+  }
+
+  @ReactMethod
   override fun cancel(opId: String) {
     cancelTokens.remove(opId)?.cancel()
   }
