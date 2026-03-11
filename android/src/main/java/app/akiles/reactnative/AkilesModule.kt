@@ -499,7 +499,7 @@ class AkilesModule(reactContext: ReactApplicationContext) :
   override fun captureDiagnostics(sessionID: String, scanDuration: Double, required: com.facebook.react.bridge.ReadableArray?): String {
     val opId = UUID.randomUUID().toString()
     val requiredArray: Array<String>? = if (required != null) {
-      Array(required.size()) { i -> required.getString(i) }
+      Array(required.size()) { i -> required.getString(i)!! }
     } else {
       null
     }
