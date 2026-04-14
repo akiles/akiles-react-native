@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.private_header_files = "ios/**/*.h"
 
   # Akiles SDK dependency
-  s.dependency "AkilesSDK", "~> 2.3.0"
+  s.dependency "AkilesSDK", "~> 2.3.1"
 
  install_modules_dependencies(s)
 end
