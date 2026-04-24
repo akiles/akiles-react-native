@@ -90,3 +90,16 @@ nitrogen/
 
 # webstorm
 .idea/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.p12
+*.mobileprovision
+*.cer
+release.keystore
+keystore.properties
+signing.properties
+google-services.json
+GoogleService-Info.plist
