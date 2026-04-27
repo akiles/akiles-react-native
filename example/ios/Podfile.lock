@@ -1,6 +1,6 @@
 PODS:
-  - Akiles (2.3.4):
-    - AkilesSDK (~> 2.3.4)
+  - Akiles (2.4.0):
+    - AkilesSDK (~> 2.4.0)
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -22,7 +22,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - AkilesSDK (2.3.4)
+  - AkilesSDK (2.4.0)
   - FBLazyVector (0.85.2)
   - hermes-engine (250829098.0.10):
     - hermes-engine/Pre-built (= 250829098.0.10)
@@ -1797,7 +1797,7 @@ PODS:
 
 DEPENDENCIES:
   - Akiles (from `../..`)
-  - AkilesSDK (from `https://github.com/akiles/akiles-ios.git`, branch `v2.3.4`)
+  - AkilesSDK (from `https://github.com/akiles/akiles-ios.git`, branch `v2.4.0`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1878,7 +1878,7 @@ EXTERNAL SOURCES:
   Akiles:
     :path: "../.."
   AkilesSDK:
-    :branch: v2.3.4
+    :branch: v2.4.0
     :git: https://github.com/akiles/akiles-ios.git
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
@@ -2032,12 +2032,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AkilesSDK:
-    :commit: 1819dfb7eef5b9d91a368d5485074978c5b6704c
+    :commit: 8a2720840f4b8144e317380a01c4ac137531b4ae
     :git: https://github.com/akiles/akiles-ios.git
 
 SPEC CHECKSUMS:
-  Akiles: b7281a43d8749d748d35c71bf3e363a386cd2cd9
-  AkilesSDK: df5b3c5f2d1f77b13ce57097c7e7ae49c22e430e
+  Akiles: 05507a729441130a080286b56bc80f56c77e8070
+  AkilesSDK: b57ab846097acc71eb7462d675feb55add87970d
   FBLazyVector: 26fd21c75314e101f280d401e97f27d54f3f7064
   hermes-engine: e59281af8df48485494c00588a11da6a13d6c8f0
   RCTDeprecation: c7a2768f905d76ca6d2cfefb26e4349eacbdfca3
@@ -2113,6 +2113,6 @@ SPEC CHECKSUMS:
   RNCPicker: d74667bdfc08ed389a2a277d95b8faf2349290a9
   Yoga: 04bb4bfeb02c0000b940c1e6e89e856cd8de5a71
 
-PODFILE CHECKSUM: c5bcf3e37747a7dccf697c8a7a1034dae69b16fc
+PODFILE CHECKSUM: 713b980cae82bc7f4dc12a580baa18ff00dd6077
 
 COCOAPODS: 1.15.2
