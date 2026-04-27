@@ -212,6 +212,21 @@ export enum ErrorCode {
    * The phone failed to acquire a GNSS fix in reasonable time, probably because it has bad coverage (it's indoors, etc).
    */
   LOCATION_FAILED = 'LOCATION_FAILED',
+
+  /**
+   * HCE session is already in progress. Stop the existing session before starting a new one.
+   */
+  HCE_SESSION_ALREADY_IN_PROGRESS = 'HCE_SESSION_ALREADY_IN_PROGRESS',
+
+  /**
+   * HCE is not supported on this device / OS version.
+   */
+  HCE_NOT_SUPPORTED = 'HCE_NOT_SUPPORTED',
+
+  /**
+   * HCE is not eligible on this device (missing entitlements, region restrictions, etc.).
+   */
+  HCE_NOT_ELIGIBLE = 'HCE_NOT_ELIGIBLE',
 }
 
 export interface GadgetAction {
